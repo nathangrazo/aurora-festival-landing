@@ -1,3 +1,9 @@
+import { Hero } from "./components/Hero";
+
 export default function App() {
-  return <main className="grid min-h-svh place-items-center">Aurora</main>;
+  return (
+    <main>
+      <Hero />
+    </main>
+  );
 }
