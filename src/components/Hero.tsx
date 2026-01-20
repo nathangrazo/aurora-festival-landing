@@ -28,7 +28,7 @@ export function Hero() {
           initial={{ opacity: 0, y: 12 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2, duration: 0.8 }}
-          className="label flex items-center gap-2"
+          className="label flex items-center gap-2 text-mist/80"
         >
           <span className="size-1.5 animate-pulse rounded-full bg-mint" />
           19 — 21 de março de 2027

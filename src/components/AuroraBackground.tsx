@@ -30,13 +30,13 @@ export function AuroraBackground() {
       {blobs.map((b, i) => (
         <motion.div
           key={i}
-          className="absolute rounded-full opacity-50 mix-blend-screen blur-[110px]"
+          className="absolute rounded-full mix-blend-screen blur-[110px]"
           style={{ width: b.size, height: b.size, background: b.color }}
           initial={{ x: b.x[0], y: b.y[0], scale: 0.6, opacity: 0 }}
           animate={
             reduce
-              ? { opacity: 0.45, scale: 1 }
-              : { x: b.x, y: b.y, scale: [1, 1.15, 1], opacity: 0.45 }
+              ? { opacity: 0.35, scale: 1 }
+              : { x: b.x, y: b.y, scale: [1, 1.15, 1], opacity: 0.35 }
           }
           transition={{
             duration: b.duration,
