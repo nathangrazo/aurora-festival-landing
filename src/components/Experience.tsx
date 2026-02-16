@@ -47,8 +47,10 @@ export function Experience() {
           ))}
         </motion.ul>
 
-        <div className="mx-auto mt-10 h-px w-full max-w-7xl bg-white/10 px-5">
-          <motion.div style={{ width: progress }} className="h-px bg-mint" />
+        <div className="mx-auto mt-10 w-full max-w-7xl px-5">
+          <div className="h-px bg-white/10">
+            <motion.div style={{ width: progress }} className="h-px bg-mint" />
+          </div>
         </div>
       </div>
     </section>
