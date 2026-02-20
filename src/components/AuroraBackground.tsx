@@ -2,9 +2,9 @@ import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring 
 import { useEffect } from "react";
 
 const blobs = [
-  { color: "var(--color-violet)", size: "55vw", x: ["-10%", "15%", "-5%"], y: ["-20%", "5%", "-10%"], duration: 18 },
-  { color: "var(--color-mint)", size: "45vw", x: ["40%", "20%", "45%"], y: ["-10%", "10%", "0%"], duration: 22 },
-  { color: "var(--color-rose)", size: "40vw", x: ["60%", "75%", "55%"], y: ["20%", "0%", "25%"], duration: 20 },
+  { color: "var(--color-violet)", size: "max(55vw, 420px)", x: ["-10%", "15%", "-5%"], y: ["-20%", "5%", "-10%"], duration: 18 },
+  { color: "var(--color-mint)", size: "max(45vw, 340px)", x: ["40%", "20%", "45%"], y: ["-10%", "10%", "0%"], duration: 22 },
+  { color: "var(--color-rose)", size: "max(40vw, 300px)", x: ["60%", "75%", "55%"], y: ["20%", "0%", "25%"], duration: 20 },
 ];
 
 export function AuroraBackground() {

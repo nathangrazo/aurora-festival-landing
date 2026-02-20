@@ -1,5 +1,5 @@
 import { motion, useScroll, useTransform } from "motion/react";
-import { useRef } from "react";
+import { useEffect, useRef, useState } from "react";
 import { EXPERIENCES } from "../data/festival";
 
 const gradients: Record<string, string> = {
@@ -15,8 +15,25 @@ const gradients: Record<string, string> = {
  */
 export function Experience() {
   const ref = useRef<HTMLElement>(null);
+  const trackRef = useRef<HTMLUListElement>(null);
+  const [distance, setDistance] = useState(0);
   const { scrollYProgress } = useScroll({ target: ref });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-62%"]);
+  const x = useTransform(scrollYProgress, [0.05, 0.95], [0, -distance]);
+
+  // Quanto a trilha precisa andar pra mostrar o último card inteiro
+  useEffect(() => {
+    const track = trackRef.current;
+    if (!track) return;
+    const measure = () => setDistance(Math.max(0, track.scrollWidth - window.innerWidth + 24));
+    measure();
+    const observer = new ResizeObserver(measure);
+    observer.observe(track);
+    window.addEventListener("resize", measure);
+    return () => {
+      observer.disconnect();
+      window.removeEventListener("resize", measure);
+    };
+  }, []);
   const progress = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
 
   return (
@@ -29,7 +46,7 @@ export function Experience() {
           </h2>
         </div>
 
-        <motion.ul style={{ x }} className="mt-12 flex w-max gap-6 pl-[max(1.25rem,calc((100vw-80rem)/2+1.25rem))]">
+        <motion.ul ref={trackRef} style={{ x }} className="mt-12 flex w-max gap-6 pl-[max(1.25rem,calc((100vw-80rem)/2+1.25rem))]">
           {EXPERIENCES.map((item, i) => (
             <li
               key={item.title}
