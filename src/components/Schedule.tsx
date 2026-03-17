@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
 import { DAYS, SCHEDULE, type DayId } from "../data/festival";
+import { RevealText } from "./RevealText";
 
 export function Schedule() {
   const [day, setDay] = useState<DayId>("sex");
@@ -8,7 +9,7 @@ export function Schedule() {
   return (
     <section id="programacao" className="mx-auto max-w-7xl px-5 py-32">
       <p className="label">Programação</p>
-      <h2 className="mt-3 text-5xl font-bold tracking-tight sm:text-7xl">Dia a dia</h2>
+      <RevealText text="Dia a dia" className="mt-3 text-5xl font-bold tracking-tight sm:text-7xl" />
 
       <div role="tablist" aria-label="Dias do festival" className="mt-12 inline-flex rounded-full border border-white/10 p-1">
         {DAYS.map((d) => (

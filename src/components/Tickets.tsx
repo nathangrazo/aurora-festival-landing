@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Check } from "lucide-react";
 import { TICKETS } from "../data/festival";
+import { RevealText } from "./RevealText";
 import { TiltCard } from "./TiltCard";
 
 const brl = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -10,7 +11,7 @@ export function Tickets() {
     <section id="ingressos" className="relative mx-auto max-w-7xl px-5 py-32">
       <div className="text-center">
         <p className="label">Ingressos · 2º lote</p>
-        <h2 className="mt-3 text-5xl font-bold tracking-tight sm:text-7xl">Escolha seu passe</h2>
+        <RevealText text="Escolha seu passe" highlight={["passe"]} className="mt-3 text-5xl font-bold tracking-tight sm:text-7xl" />
       </div>
 
       <div className="mt-16 grid gap-6 md:grid-cols-3 md:items-center">

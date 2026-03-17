@@ -2,6 +2,7 @@ import { AnimatePresence, motion } from "motion/react";
 import { Plus } from "lucide-react";
 import { useId, useState } from "react";
 import { FAQ } from "../data/festival";
+import { RevealText } from "./RevealText";
 
 function Item({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -44,7 +45,7 @@ export function Faq() {
     <section id="faq" className="mx-auto grid max-w-7xl gap-12 px-5 py-32 md:grid-cols-[1fr_2fr]">
       <div>
         <p className="label">FAQ</p>
-        <h2 className="mt-3 text-5xl font-bold tracking-tight">Dúvidas</h2>
+        <RevealText text="Dúvidas" className="mt-3 text-5xl font-bold tracking-tight" />
         <p className="mt-4 text-mist/60">
           Não achou? Escreve pra <a className="text-mint underline-offset-4 hover:underline" href="mailto:oi@aurorafest.com.br">oi@aurorafest.com.br</a>
         </p>
