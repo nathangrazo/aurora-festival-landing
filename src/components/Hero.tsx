@@ -1,6 +1,6 @@
-import { motion, useReducedMotion, useScroll, useTransform } from "motion/react";
+import { motion, useMotionValue, useReducedMotion, useScroll, useSpring, useTransform } from "motion/react";
 import { ArrowDown, MapPin } from "lucide-react";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 import { AuroraBackground } from "./AuroraBackground";
 import { Countdown } from "./Countdown";
 import { MagneticButton } from "./MagneticButton";
@@ -15,6 +15,22 @@ export function Hero() {
   const scale = useTransform(scrollYProgress, [0, 1], [1, 0.85]);
   const opacity = useTransform(scrollYProgress, [0, 0.8], [1, 0]);
   const blur = useTransform(scrollYProgress, [0, 1], ["blur(0px)", "blur(12px)"]);
+
+  // O título inclina levemente na direção do mouse
+  const mx = useMotionValue(0);
+  const my = useMotionValue(0);
+  const tiltY = useSpring(useTransform(mx, [-1, 1], [-10, 10]), { stiffness: 80, damping: 20 });
+  const tiltX = useSpring(useTransform(my, [-1, 1], [8, -8]), { stiffness: 80, damping: 20 });
+
+  useEffect(() => {
+    if (reduce) return;
+    const onMove = (e: PointerEvent) => {
+      mx.set((e.clientX / window.innerWidth) * 2 - 1);
+      my.set((e.clientY / window.innerHeight) * 2 - 1);
+    };
+    window.addEventListener("pointermove", onMove);
+    return () => window.removeEventListener("pointermove", onMove);
+  }, [mx, my, reduce]);
 
   return (
     <section ref={ref} id="topo" className="relative flex min-h-svh items-center overflow-hidden pt-24 pb-16">
@@ -34,21 +50,25 @@ export function Hero() {
           19 — 21 de março de 2027
         </motion.p>
 
-        <h1 aria-label="Aurora" className="mt-6 flex overflow-hidden text-[clamp(4.5rem,19vw,17rem)] leading-[0.85] font-extrabold tracking-[-0.06em]">
+        <motion.h1
+          aria-label="Aurora"
+          style={{ rotateX: tiltX, rotateY: tiltY, transformPerspective: 1200 }}
+          className="mt-6 flex text-[clamp(4.5rem,19vw,17rem)] leading-[0.85] font-extrabold tracking-[-0.06em] [transform-style:preserve-3d]"
+        >
           {TITLE.map((letter, i) => (
-            <motion.span
-              key={i}
-              aria-hidden
-              className="text-aurora inline-block bg-size-[600%_100%]"
-              style={{ backgroundPosition: `${(i / (TITLE.length - 1)) * 100}% 0` }}
-              initial={{ y: "105%", rotate: 8 }}
-              animate={{ y: 0, rotate: 0 }}
-              transition={{ delay: 0.3 + i * 0.07, duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-            >
-              {letter}
-            </motion.span>
+            <span key={i} aria-hidden className="inline-block [perspective:800px]">
+              <motion.span
+                className="text-aurora inline-block origin-bottom bg-size-[600%_100%]"
+                style={{ backgroundPosition: `${(i / (TITLE.length - 1)) * 100}% 0` }}
+                initial={{ y: "100%", rotateX: -90, opacity: 0 }}
+                animate={{ y: 0, rotateX: 0, opacity: 1 }}
+                transition={{ delay: 0.35 + i * 0.08, duration: 1.2, ease: [0.16, 1, 0.3, 1] }}
+              >
+                {letter}
+              </motion.span>
+            </span>
           ))}
-        </h1>
+        </motion.h1>
 
         <motion.div
           initial={{ opacity: 0, y: 20 }}

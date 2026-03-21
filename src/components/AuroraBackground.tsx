@@ -1,5 +1,15 @@
 import { motion, useMotionTemplate, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useEffect } from "react";
+import { seeded } from "../lib/random";
+
+const rand = seeded(7);
+const STARS = Array.from({ length: 70 }, () => ({
+  top: rand() * 100,
+  left: rand() * 100,
+  size: rand() * 2 + 0.5,
+  delay: rand() * 4,
+  duration: 2 + rand() * 3,
+}));
 
 const blobs = [
   { color: "var(--color-violet)", size: "max(55vw, 420px)", x: ["-10%", "15%", "-5%"], y: ["-20%", "5%", "-10%"], duration: 18 },
@@ -49,6 +59,18 @@ export function AuroraBackground() {
       ))}
 
       <motion.div className="absolute inset-0" style={{ background: spotlight }} />
+
+      {/* Estrelas piscando */}
+      {STARS.map((star, i) => (
+        <motion.span
+          key={i}
+          className="absolute rounded-full bg-white"
+          style={{ top: `${star.top}%`, left: `${star.left}%`, width: star.size, height: star.size }}
+          initial={{ opacity: 0 }}
+          animate={reduce ? { opacity: 0.5 } : { opacity: [0, 0.9, 0.2, 0.9] }}
+          transition={{ duration: star.duration, delay: star.delay, repeat: Infinity, repeatType: "mirror" }}
+        />
+      ))}
 
       {/* Linhas de horizonte */}
       <div className="absolute inset-x-0 bottom-0 h-1/2 bg-[linear-gradient(to_bottom,transparent,var(--color-night)_85%)]" />
