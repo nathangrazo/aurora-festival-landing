@@ -1,21 +1,10 @@
 import { AnimatePresence, motion, useMotionValue, useSpring } from "motion/react";
 import { useState } from "react";
 import { ARTISTS, DAYS, type Artist } from "../data/festival";
+import { RevealText } from "./RevealText";
+import { StageArt } from "./StageArt";
 
 const dayLabel = Object.fromEntries(DAYS.map((d) => [d.id, `${d.label} ${d.date}`]));
-
-function ArtistArt({ hue }: { hue: number }) {
-  return (
-    <div
-      className="size-full"
-      style={{
-        background: `radial-gradient(circle at 30% 25%, hsl(${hue} 95% 75%), transparent 45%),
-          radial-gradient(circle at 75% 80%, hsl(${(hue + 60) % 360} 90% 60%), transparent 50%),
-          linear-gradient(160deg, hsl(${hue} 70% 30%), hsl(${(hue + 200) % 360} 60% 12%))`,
-      }}
-    />
-  );
-}
 
 export function Lineup() {
   const [active, setActive] = useState<Artist | null>(null);
@@ -32,9 +21,7 @@ export function Lineup() {
       <div className="mb-16 flex flex-wrap items-end justify-between gap-6">
         <div>
           <p className="label">Line-up 2027</p>
-          <h2 className="mt-3 text-5xl font-bold tracking-tight sm:text-7xl">
-            Quem <span className="text-aurora">sobe</span> ao palco
-          </h2>
+          <RevealText text="Quem sobe ao palco" highlight={["sobe"]} className="mt-3 text-5xl font-bold tracking-tight sm:text-7xl" />
         </div>
         <p className="max-w-xs text-mist/60">Passe o mouse nos nomes. Os headliners estão marcados com ✦.</p>
       </div>
@@ -89,7 +76,7 @@ export function Lineup() {
               className="-translate-x-1/2 -translate-y-1/2 overflow-hidden rounded-2xl shadow-2xl shadow-black/60"
             >
               <motion.div key={active.name} initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="relative h-72 w-56">
-                <ArtistArt hue={active.hue} />
+                <StageArt hue={active.hue} />
                 <div className="absolute inset-x-0 bottom-0 p-4">
                   <p className="label text-mist/80">{active.genre}</p>
                   <p className="font-bold">{active.name}</p>
