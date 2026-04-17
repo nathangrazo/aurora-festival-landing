@@ -22,9 +22,9 @@ function Poster({ hue, caption, center }: { hue: number; caption: string; center
       <StageArt hue={hue} />
       {center ? (
         <div className="absolute inset-0 grid place-items-center p-4 text-center">
-          <p className="text-[2.2vw] leading-none font-extrabold tracking-tight">
+          <p className="text-[clamp(1.1rem,2.2vw,3rem)] leading-none font-extrabold tracking-tight">
             40 mil pessoas
-            <span className="block font-mono text-[0.7vw] font-normal tracking-widest text-mist/70 uppercase">edição 2026</span>
+            <span className="block font-mono text-[clamp(0.5rem,0.7vw,1rem)] font-normal tracking-widest text-mist/70 uppercase">edição 2026</span>
           </p>
         </div>
       ) : (
@@ -55,7 +55,7 @@ export function ZoomParallax() {
   return (
     <section ref={ref} className="relative h-[300vh]" aria-label="Como foi a edição de 2026">
       <div className="sticky top-0 h-svh overflow-hidden">
-        <motion.p style={{ opacity: titleOpacity }} className="label absolute bottom-8 left-1/2 z-10 -translate-x-1/2 rounded-full border border-white/10 bg-night/70 px-4 py-2 backdrop-blur">
+        <motion.p style={{ opacity: titleOpacity }} className="label absolute bottom-8 left-1/2 z-10 -translate-x-1/2 whitespace-nowrap rounded-full border border-white/10 bg-night/70 px-4 py-2 backdrop-blur">
           Edição 2026 · role pra entrar
         </motion.p>
         {POSTERS.map((_, i) => (
