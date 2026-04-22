@@ -1,5 +1,8 @@
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
+import { AuroraBackground } from "./AuroraBackground";
+import { MagneticButton } from "./MagneticButton";
+import { RevealText } from "./RevealText";
 
 export function Footer() {
   const ref = useRef<HTMLElement>(null);
@@ -8,8 +11,23 @@ export function Footer() {
   const letterSpacing = useTransform(scrollYProgress, [0, 1], ["0.1em", "-0.06em"]);
 
   return (
-    <footer ref={ref} className="relative overflow-hidden border-t border-white/10 pt-20">
-      <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-8 px-5 text-sm text-mist/60">
+    <footer ref={ref} className="relative overflow-hidden border-t border-white/10">
+      <div className="relative flex min-h-[80svh] flex-col items-center justify-center px-5 py-32 text-center">
+        <div className="absolute inset-0 opacity-70">
+          <AuroraBackground />
+        </div>
+        <p className="label relative text-mist/80">19 — 21.03.2027</p>
+        <RevealText
+          text="Te vejo na represa."
+          highlight={["represa."]}
+          className="relative mt-4 max-w-4xl text-6xl leading-[0.95] font-extrabold tracking-tight sm:text-8xl"
+        />
+        <div className="relative mt-10">
+          <MagneticButton href="#ingressos">Garantir meu passe</MagneticButton>
+        </div>
+      </div>
+
+      <div className="mx-auto flex max-w-7xl flex-wrap justify-between gap-8 px-5 pt-16 text-sm text-mist/60">
         <p>
           Represa Guarapiranga · São Paulo
           <br />
